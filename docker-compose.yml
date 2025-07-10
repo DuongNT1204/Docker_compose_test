@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: ./sd1.5
+    container_name: fastapi_app
+    expose:
+      - 7860
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
